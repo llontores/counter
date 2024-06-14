@@ -8,40 +8,40 @@ public class Counter : MonoBehaviour
 {
     [SerializeField] private Button _button;
     [SerializeField] private TMP_Text _text;
-    [SerializeField] private float _counterDelay;
+    [SerializeField] private float _delay;
 
     private bool _isClicked = false;
-    private Coroutine _countSecondsJob;
+    private Coroutine _øncrementCounterJob;
     private int _counter;
 
     private void OnEnable()
     {
         _text.text = "";
-        _button.onClick.AddListener(CounterManager);
+        _button.onClick.AddListener(ToggleCounting);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(CounterManager);
+        _button.onClick.RemoveListener(ToggleCounting);
     }
 
-    private void CounterManager()
+    private void ToggleCounting()
     {
         if (_isClicked == false)
         {
-            _countSecondsJob = StartCoroutine(CountSeconds());
+            _øncrementCounterJob = StartCoroutine(IncrementCounter());
             _isClicked = true;
         }
         else
         {
-            StopCoroutine(_countSecondsJob);
+            StopCoroutine(_øncrementCounterJob);
             _isClicked = false;
         }
     }
 
-    private IEnumerator CountSeconds()
+    private IEnumerator IncrementCounter()
     {
-        WaitForSeconds delay = new WaitForSeconds(_counterDelay);
+        WaitForSeconds delay = new WaitForSeconds(_delay);
 
         while (true)
         {
